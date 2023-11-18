@@ -5,7 +5,6 @@
       }
     },
     "routes": [
-      { "src": "/(.*)",  "dest": "index.php" },
       { "src": "/mico-html/css/bootstrap.css", "dest": "mico-html/css/bootstrap.css" },
       { "src": "/mico-html/css/font-awesome.min.css", "dest":"/mico-html/css/font-awesome.min.css"},
       { "src": "/mico-html/css/responsive.css", "dest":"/mico-html/css/responsive.css"},
@@ -17,6 +16,7 @@
       { "src": "/mico-html/js/custom.js", "dest":"/mico-html/js/custom.js"},
       { "src": "/mico-html/jquery-3.4.1.min.js", "dest":"/mico-html/jquery-3.4.1.min.js"},
       { "src": "/mico-html/template/footer.php", "dest":"/mico-html/template/footer.php"},
-      { "src": "/mico-html/template/header.php", "dest":"/mico-html/template/header.php"}
+      { "src": "/mico-html/template/header.php", "dest":"/mico-html/template/header.php"},
+      { "src": "/mico-html/index.php", "dest":"/mico-html/index.php"}
       ]
   }
