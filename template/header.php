@@ -7,7 +7,7 @@
             <a href="">
               <i class="fa fa-phone" aria-hidden="true"></i>
               <span class="ml-1">
-                Call : +62 XXXXXXXXXXX
+                Call : +62 12344567891
               </span>
             </a>
             <a href="">
@@ -44,25 +44,15 @@
                     <a class="nav-link" href="../mico-html/index.php">Beranda</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="">Formularium</a>
-                  </li>
-                  <li class="nav-item">
                     <a class="nav-link" href="">Persediaan</a>
                   </li>
-                  
                   <li class="nav-item">
-                    <a class="nav-link" href="">farmasi klinis</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="">Laporan</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="">Kontak</a>
+                    <a class="nav-link" href="#kontak">Kontak</a>
                   </li>
                 </ul>
               </div>
               <div class="quote_btn-container">
-                <a href="">
+                <a href="../mico-html/employee/login.php">
                   <span>
                     Login
                   </span>

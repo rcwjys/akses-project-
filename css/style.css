@@ -116,6 +116,16 @@ a:focus {
   color: white;
 }
 
+li.active-employee {
+  margin-left: 25vw;
+}
+
+button.active-employee {
+  color: black;
+  font-weight: 500;
+  
+}
+
 .header_section .header_bottom {
   background-color: #00c6a9;
 }
@@ -426,10 +436,11 @@ a:focus {
   border-radius: 5px;
   margin-top: 15px;
   font-weight: 500;
+  transition: transform 500ms;
 }
 
 .slider_section .detail-box a:hover {
-  background-color: #0c0c0c;
+  transform: scale(1.05);
 }
 
 .slider_section .img-box img {
@@ -460,6 +471,7 @@ a:focus {
   height: 50px;
   background-color: #00c6a9;
   opacity: 1;
+  transition: transform 500ms;
 }
 
 .slider_section .carousel_btn-box .carousel-control-prev img,
@@ -469,7 +481,7 @@ a:focus {
 
 .slider_section .carousel_btn-box .carousel-control-prev:hover,
 .slider_section .carousel_btn-box .carousel-control-next:hover {
-  background-color: #252525;
+  transform: scale(1.05);
 }
 
 .book_section h4 {
@@ -607,10 +619,11 @@ a:focus {
   border-radius: 5px;
   margin-top: 15px;
   font-weight: 500;
+  transition: transform 500ms;
 }
 
 .about_section .detail-box a:hover {
-  background-color: #0c0c0c;
+  transform: scale(1.05);
 }
 
 .treatment_section {
@@ -881,19 +894,19 @@ a:focus {
 }
 
 .contact_section .form_container input::-webkit-input-placeholder {
-  color: #00c6a9;
+  color: #019F90;
 }
 
 .contact_section .form_container input:-ms-input-placeholder {
-  color: #00c6a9;
+  color: #019F90;
 }
 
 .contact_section .form_container input::-ms-input-placeholder {
-  color: #00c6a9;
+  color: #019F90;
 }
 
 .contact_section .form_container input::placeholder {
-  color: #00c6a9;
+  color: #019F90;
 }
 
 .contact_section .form_container input.message-box {
@@ -905,14 +918,15 @@ a:focus {
   text-transform: uppercase;
   display: inline-block;
   padding: 15px 65px;
-  background-color: #00c6a9;
+  background-color: #019F90;
   color: #ffffff;
   border-radius: 0;
   font-weight: bold;
+  transition: transform 500ms;
 }
 
 .contact_section .form_container button:hover {
-  background-color: #00937d;
+  transform: scale(1.05);
 }
 
 .contact_section .img-box img {
