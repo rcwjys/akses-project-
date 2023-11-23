@@ -1,6 +1,14 @@
 <?php 
   require("../config/connection.php");
 
+  session_start();
+
+  if (isset($_SESSION['login'])) {
+    
+  } else {
+    header("Location: ../index.php");
+  }
+
   $errorMessage = ['employeeName' => '', 'employeeEmail' => '', 'employeePhoneNumber' => '', 'employeeAddress' => '', 'employeePassword' => '', 'passwordConfirmation' => '', 'notEqualPassword' => ''];
 
   function validateForm() {
@@ -207,7 +215,7 @@
                         </div>
 
                         <div class="form-group text-right">
-                            <a href="../index.php" class="back-link">Kembali</a>
+                            <a href="../employee/index.php" class="back-link">Kembali</a>
                         </div>
                         
                         <button type="submit" name="register" class="btn btn-block login-btn">Register</button>

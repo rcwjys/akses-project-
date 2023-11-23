@@ -1,6 +1,12 @@
 <?php 
 require("../mico-html/config/connection.php");
 
+    session_start();
+
+    if (isset($_SESSION['login'])) {
+      header("Location: ../mico-html/employee/index.php");
+    }
+
     $errorMessage = ['fullname' => '', 'email' => '', 'phoneNumber' => '', 'message' => ''];
 
     if (isset($_POST['send'])) {

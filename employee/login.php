@@ -1,5 +1,5 @@
 <?php 
-  require('../config/connection.php');
+  require '../config/connection.php';
 
   session_start();
 
@@ -33,10 +33,12 @@
 
         $employee = mysqli_fetch_assoc($results);
 
+        mysqli_free_result($results);
+        mysqli_close($conn);
+
         if (password_verify($custPassword, $employee['employeePassword'])) {
           header("Location: ../employee/index.php");
           $_SESSION['login'] = true;
-          $activeEmployee = $_SESSION['employeeName'] = $employee['employeeName'];
         } else {
           $errorMessage['credentials'] = 'Password salah';
         }
@@ -45,9 +47,6 @@
       }
 
     }
-
-    mysqli_free_result($results);
-    mysqli_close($conn);
 
   }
   

@@ -47,7 +47,7 @@
                     <a class="nav-link" href="">Formularium</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="">Persediaan</a>
+                    <a class="nav-link" href="../employee/persediaan-obat.php">Persediaan</a>
                   </li>
                   
                   <li class="nav-item">
@@ -56,10 +56,10 @@
                   <li class="nav-item">
                     <a class="nav-link" href="">Laporan</a>
                   </li>
-                  <li class="nav-item active-employee">
+                  <li class="nav-item">
                     <form action="../employee/logout.php" method="POST">
-                      <button class="active-employee nav-link" name="logout">
-                        <?php echo $_SESSION['employeeName'] ?>
+                      <button class="nav-link logout-btn" name="logout" onclick="alert('Apakah anda yakin ingin logout? ')">
+                        Logout
                       </button>
                     </form>
                   </li>

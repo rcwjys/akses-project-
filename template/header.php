@@ -44,10 +44,7 @@
                     <a class="nav-link" href="../mico-html/index.php">Beranda</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="">Persediaan</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#kontak">Kontak</a>
+                    <a class="nav-link" href="../mico-html/persediaan-obat.php">Persediaan Obat</a>
                   </li>
                 </ul>
               </div>

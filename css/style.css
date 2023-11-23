@@ -116,13 +116,10 @@ a:focus {
   color: white;
 }
 
-li.active-employee {
-  margin-left: 25vw;
-}
-
-button.active-employee {
-  color: black;
+button.logout-btn {
+  color: #00c6a9 !important;
   font-weight: 500;
+
   
 }
 
@@ -1149,4 +1146,17 @@ button.active-employee {
 .footer_section p a {
   color: inherit;
 }
-/*# sourceMappingURL=style.css.map */
+
+a.back-btn {
+  background-color: #019F90 !important;
+  color: white !important;
+  box-shadow:none;
+
+}
+
+a.back-btn:hover {
+  background-color: #019F90 !important;
+  color: white;
+  text-decoration: none;
+  transform: scale(1.05);
+}
