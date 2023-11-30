@@ -39,15 +39,14 @@
         if (password_verify($custPassword, $employee['employeePassword'])) {
           header("Location: ../employee/index.php");
           $_SESSION['login'] = true;
+          $_SESSION['employeeActive'] = $employee['employeeName'];
         } else {
           $errorMessage['credentials'] = 'Password salah';
         }
       } else {
         $errorMessage['credentials'] = 'Email tidak terdaftar';
       }
-
     }
-
   }
   
 ?>

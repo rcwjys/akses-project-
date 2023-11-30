@@ -44,7 +44,7 @@
                     <a class="nav-link" href="../employee/index.php">Beranda</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="">Formularium</a>
+                    <a class="nav-link" href="../employee/formularium-page.php">Formularium</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="../employee/persediaan-obat.php">Persediaan</a>
@@ -56,9 +56,19 @@
                   <li class="nav-item">
                     <a class="nav-link" href="">Laporan</a>
                   </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      More
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <a class="dropdown-item" href="../employee/kelas-obat.php">
+                        Kelas Obat
+                      </a>
+                    </div>
+                  </li>
                   <li class="nav-item">
-                    <form action="../employee/logout.php" method="POST">
-                      <button class="nav-link logout-btn" name="logout" onclick="alert('Apakah anda yakin ingin logout? ')">
+                    <form action="../employee/logout.php" method="POST" >
+                      <button class="nav-link logout-btn" name="logout" onclick="confirm('Apakah anda yakin ingin logout? ')">
                         Logout
                       </button>
                     </form>

@@ -2,23 +2,27 @@
     session_start();
 
     require '../config/connection.php';
-    
-    if (!isset($_SESSION['login'])) {   
+
+    if (!$_SESSION['login']) {
         header("Location: ../index.php");
-    } 
-
-    $sql = "SELECT * FROM medicines";
-
-    $results = mysqli_query($conn, $sql);
-
-    if ($results) {
-        $medicines = mysqli_fetch_all($results, MYSQLI_ASSOC);
-    } else {
-      echo "Error: " . mysqli_error($conn);
     }
 
+    $datas = mysqli_query($conn, "SELECT therapyClassId FROM therapyclasses");
+
+    if (isset($_POST['submit'])) {
+        $id = mysqli_real_escape_string($conn, $_POST['therapyClassId']);
+        $therapyClassName =  mysqli_real_escape_string($conn, $_POST['therapyClassName']);
+
+        $results = mysqli_query($conn, "INSERT INTO therapyclasses(therapyClassId, therapyClassName) VALUES ($id, '$therapyClassName')");
+
+        header("Location: ../employee/kelas-obat.php");
+
+        if (!$results) {
+           echo "Error:". " " . mysqli_error($conn); 
+        }
 
         
+    }
 
 ?>
 
@@ -35,9 +39,8 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Persediaan Obat | UPTD Puskesmas Babakan Tarogong</title>
-
-
+  <title>Kelas Obat| UPTD Puskesmas Babakan Tarogong</title>
+    
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
   <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
@@ -67,43 +70,23 @@
 
 
   <?php include("../employee/template/header.php") ?>
-
-  <main>
-      <div class="container mt-5">
-        <!-- Add Medicine Button -->
-        <a href="../employee/tambah-data-obat.php" class="btn btn-primary mt-5 medicine-add-btn">+ Tambah data persediaan obat</a>
-        
-        <?php if($medicines) : ?>
-                <?php $_SESSION['isCanViewDetail'] = true; ?>
-                <div class="row mt-5">
-                <?php foreach($medicines as $medicine): ?>
-                    <div class="col-lg-3">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <?php echo htmlspecialchars($medicine['medicineName']) ?>
-                                </h5>
-                                <a href="../employee/detail-obat.php?medicineId=<?php echo $medicine['medicineId'] ?>" class="card-link" style="color: #019F90;">Details
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
+    <div class="container mt-5">
+        <form action="<?php $_SERVER['PHP_SELF']?>" method="POST">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4">ID Kelas Terapi</label>
+                <input type="number" name="therapyClassId" class="form-control" id="inputEmail4" value="<?php echo mysqli_num_rows($datas) + 1 ?>">
             </div>
-            <?php else : ?>
-                <?php $_SESSION['isCanViewDetail'] = false; ?>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h3 class="text-center">Maaf, data tidak tersedia</h3>
-                    </div>
-                </div>
-            <?php endif; ?>
-      </div>
-    </main>
+            <div class="form-group col-md-6">
+                <label for="inputPassword4">Nama Kelas Terapi</label>
+                <input type="text" name="therapyClassName" class="form-control" id="inputPassword4" placeholder="Nama Kelas Terapi">
+            </div>
+        </div>
+        <a  href="../employee/kelas-obat.php" class="btn btn-primary back-btn">Kembali</a>
 
-.
-
-  
+        <button type="submit" name="submit" class="btn btn-primary submit-button ml-3">Tambah</button>
+        </form>
+    </div>
 
   <!-- jQery -->
   <script src="../js/jquery-3.4.1.min.js"></script>
@@ -121,4 +104,3 @@
   <!-- footer section -->
   <?php include("../employee/template/footer.php"); ?>
   <!-- footer section -->
-

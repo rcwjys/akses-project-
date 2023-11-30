@@ -1160,3 +1160,83 @@ a.back-btn:hover {
   text-decoration: none;
   transform: scale(1.05);
 }
+
+a.medicine-add-btn {
+  background-color: #019F90 !important;
+  color: white !important;
+  box-shadow:none;
+  font-weight: 500;
+  text-transform: capitalize;
+
+}
+
+a.medicine-add-btn:hover {
+  background-color: #019F90 !important;
+  color: white;
+  text-decoration: none;
+  transform: scale(1.05);
+}
+
+button.submit-button {
+  background-color: #019F90 !important;
+  color: white !important;
+  box-shadow:none;
+  font-weight: 500;
+  text-transform: capitalize;
+  box-shadow: none;
+  border: none;
+}
+
+button.submit-button:hover {
+  background-color: #019F90 !important;
+  color: white;
+  text-decoration: none;
+  transform: scale(1.05);
+  box-shadow: none;
+  border: none;
+}
+
+button.delete-button {
+  margin-top: 30px !important;
+}
+
+button.delete-button:hover {
+  transform: scale(1.05) !important;
+}
+
+a.edit-button {
+  margin-top: 30px !important;
+  color: white !important;
+  background-color: #019F90;
+  box-shadow: none;
+  border-color: #019F90;
+}
+
+a.edit-button:hover {
+  transform: scale(1.05) !important;
+  color: white !important;
+  background-color: #019F90;
+  box-shadow: none;
+  border-color: #019F90;
+}
+
+button.edit-button {
+  margin-top: 30px !important;
+  color: white !important;
+  background-color: #019F90;
+  box-shadow: none;
+  border-color: #019F90;
+}
+
+button.edit-button:hover {
+  transform: scale(1.05) !important;
+  color: white !important;
+  background-color: #019F90;
+  box-shadow: none;
+  border-color: #019F90;
+}
+
+a.dropdown-item:hover {
+  background-color: #019F90 !important;
+  color: white;
+}
