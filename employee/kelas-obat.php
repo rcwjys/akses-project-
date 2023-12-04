@@ -9,7 +9,7 @@
 
     $classtherapysResults = mysqli_query($conn, "SELECT * FROM therapyclasses ORDER BY therapyClassId");
 
-    $subClasstherapysResults = mysqli_query($conn, "SELECT * FROM subtherapyclasses ORDER BY subTherapyClassName DESC");
+    $subClasstherapysResults = mysqli_query($conn, "SELECT * FROM subtherapyclasses GROUP BY  subTherapyClassId, subTherapyClassName DESC");
 
     
     $classtherapys = mysqli_fetch_all($classtherapysResults, MYSQLI_ASSOC);
@@ -31,7 +31,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Kelas Obat| UPTD Puskesmas Babakan Tarogong</title>
+  <title>Kelas Obat | UPTD Puskesmas Babakan Tarogong</title>
     
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
@@ -60,7 +60,6 @@
   <link href="../css/responsive.css" rel="stylesheet" />
 </head>
 
-
   <?php include("../employee/template/header.php") ?>
   
     <div class="row mt-5 gx-5">
@@ -85,7 +84,6 @@
                 <?php endforeach ?>
                 <a href="../employee/tambah-kelas-obat.php" class="btn btn-primary edit-button mb-3">Tambah Data Kelas obat</a>
             </table>
-            
        </div>
 
        <div class="col-6 px-5 py-5">

@@ -116,11 +116,9 @@ a:focus {
   color: white;
 }
 
-button.logout-btn {
+a.logout-btn {
   color: #00c6a9 !important;
   font-weight: 500;
-
-  
 }
 
 .header_section .header_bottom {
@@ -1239,4 +1237,22 @@ button.edit-button:hover {
 a.dropdown-item:hover {
   background-color: #019F90 !important;
   color: white;
+}
+
+li a.nav-link:hover {
+  color: #019F90 !important;
+}
+
+a.detail-button {
+  background-color: #019F90;
+  color: white;
+  transition: transform 300ms;
+  font-weight: 500;
+}
+
+a.detail-button:hover {
+  background-color: #019F90;
+  color: white;
+  transform: scale(1.05);
+  font-weight: 500;
 }

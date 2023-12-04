@@ -1,24 +1,33 @@
 <?php 
-    session_start();
+  require "../config/connection.php";
+  session_start();
 
-    require '../config/connection.php';
-
-    if (!$_SESSION['login']) {
-        header("Location: ../index.php");
+  if ($_SESSION['login']) {
+    if (!$_SESSION['isEmployeeDetailProvided']) {
+        header("Location: ../employee/list-pegawai.php");
     }
+  } else {
+    header('Location: ../index.php');
+  }
 
-    $sql = "SELECT * FROM medicines med INNER JOIN medicinerecipes mr ON mr.recipeId = med.recipeId INNER JOIN medicineunits mu ON med.medicineUnitId = mu.medicineUnitId INNER JOIN therapyclasses tc on med.therapyClassId = tc.therapyClassId INNER JOIN subtherapyclasses stc on med.subTherapyClassId = stc.subTherapyClassId";
+  $employeeId = mysqli_real_escape_string($conn, $_GET['employeeId']);
 
-    $results = mysqli_query($conn, $sql);
+  $fetchEmployee = mysqli_query($conn, "SELECT * FROM employees where employeeid = $employeeId");
 
-    if ($isExist = mysqli_num_rows($results) >= 1) {
-        $datas = mysqli_fetch_all($results, MYSQLI_ASSOC);
-    } else {
-        $_SESSION['formulariumMessage'] = 'Maaf, data Formularium Tidak ditemukan'; 
-    }
+  if (mysqli_num_rows($fetchEmployee) === 1) {
+    $employee = mysqli_fetch_assoc($fetchEmployee);
+  }else {
+    header("Location: ../employee/404.php");
+  }
+
+  
+
+
+
+
+
 
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -33,7 +42,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Formularium | UPTD Puskesmas Babakan Tarogong</title>
+  <title>Detail Pegawai | UPTD Puskesmas Babakan Tarogong</title>
 
 
   <!-- bootstrap core css -->
@@ -62,67 +71,61 @@
   <!-- responsive style -->
   <link href="../css/responsive.css" rel="stylesheet" />
 </head>
+  
+  <?php include "../employee/template/header.php"; ?>
 
-  <?php include("../employee/template/header.php") ?>
   <main>
-    <?php if($isExist) :?>
         <div class="container mt-5">
             <div class="card mx-auto" style="width: 60vw;">
                 <div class="card-header text-center">
-                    <h6>FORMULARIUM</h6>
+                    <h6>Detail Pegawai</h6>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <tbody>
                             <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Kelas Terapi</th>
-                                <th scope="col">Sub Kelas Terapi</th>
-                                <th scope="col">Nama Generik & Kekuatan Sediaan</th>
-                                <th scope="col">Peresepan Maksimal</th>
-                                <th scope="col">Keterangan</th>
+                                <th scope="row" style="width: 40vw;">Nama Pegawai </th>
+                                <td>:</td>
+                                <td><?php echo htmlspecialchars($employee['employeeName']) ?></td>
                             </tr>
-                            <?php $number = 1 ?>
-                            <?php foreach($datas as $data) : ?>
-                                <tr>
-                                    
-                                    <th><?php echo $number?></th>
-                                    <td>
-                                        <?php echo htmlspecialchars($data['therapyClassName']) ?>
-                                    </td>
-                                    <td>
-                                        <?php echo htmlspecialchars($data['subTherapyClassName']) ?>
-                                        </td>
-                                    <td>
-                                        <?php echo htmlspecialchars($data['medicineName']) ?>
-                                    </td>
-                                    <td>
-                                        <?php echo htmlspecialchars($data['recipe']) ?>
-                                    </td>
-                                    <td>
-                                        <?php echo htmlspecialchars($data['medicineInformation']) ?>
-                                    </td>
-                                    <?php $number++ ?>
-                                </tr>
-                            <?php endforeach; ?>
-                        
+                            <tr>
+                                <th scope="row">Email Pegawai</th>
+                                <td>:</td>
+                                <td><?php echo htmlspecialchars($employee['employeeEmail']) ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">No Telepon Pegawai</th>
+                                <td>:</td>
+                                <td><?php echo htmlspecialchars($employee['employeePhone']) ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Alamat Pegawai</th>
+                                <td>:</td>
+                                <td><?php echo htmlspecialchars($employee['employeeAddress']) ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Role</th>
+                                <td>:</td>
+                                <td>
+                                        <?php if($employee['isAdmin'] == 1) : ?>
+                                            <?php echo htmlspecialchars("Admin") ?>
+                                        <?php else: ?>
+                                            <?php echo htmlspecialchars("Pegawai") ?>
+                                        <?php endif;?>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
+                    <form action="" method="POST">
+                        <a type="button" class="btn mt-5 mx-3 my-3 back-btn" href="../employee/list-pegawai.php">Kembali</a>
+
+                        <a type="button" class="btn mt-5 mx-3 my-3 back-btn" href="../employee/reset-password.php?employeeId=<?php echo $employee['employeeId'] ?>">Reset Password</a>
+                    </form>
                 </div>
             </div>
         </div>
-    <?php else: ?>
-        <div class="container mt-5">
-            <div class="card mx-auto" style="width: 60vw;">
-                <div class="card-header text-center">
-                    <h6>FORMULARIUM</h6>
-                </div>
-                <h3 class="text-center py-5 px-5"><?php echo $_SESSION['formulariumMessage']?></h3>
-            </div>
-        </div>
-    <?php endif;?>
-        
     </main>
+
   <!-- jQery -->
   <script src="../js/jquery-3.4.1.min.js"></script>
   <!-- bootstrap js -->

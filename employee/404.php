@@ -46,7 +46,7 @@
     <div class="error-container text-center mt-5">
         <h1 class="display-4">404 Not Found</h1>
         <p class="lead">Sorry, the page you are looking for might be in another castle.</p>
-        <a class="btn btn-primary back-btn" href="../employee/persediaan-obat.php">Go Back</a>
+        <a class="btn btn-primary back-btn" href="../employee/index.php">Go Back</a>
     </div>
 
 

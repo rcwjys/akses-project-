@@ -1,21 +1,22 @@
 <?php 
-    session_start();
+  require '../config/connection.php';
+  session_start();
 
-    require '../config/connection.php';
+  if (!$_SESSION['login']) {
+    header("Location: ../index.php");
+  }
 
-    if (!$_SESSION['login']) {
-        header("Location: ../index.php");
-    }
+  $fetchEmployee = mysqli_query($conn, "SELECT employeeId, employeeName, isAdmin, employeePassword FROM employees ORDER BY employeeName");
 
-    $sql = "SELECT * FROM medicines med INNER JOIN medicinerecipes mr ON mr.recipeId = med.recipeId INNER JOIN medicineunits mu ON med.medicineUnitId = mu.medicineUnitId INNER JOIN therapyclasses tc on med.therapyClassId = tc.therapyClassId INNER JOIN subtherapyclasses stc on med.subTherapyClassId = stc.subTherapyClassId";
 
-    $results = mysqli_query($conn, $sql);
 
-    if ($isExist = mysqli_num_rows($results) >= 1) {
-        $datas = mysqli_fetch_all($results, MYSQLI_ASSOC);
-    } else {
-        $_SESSION['formulariumMessage'] = 'Maaf, data Formularium Tidak ditemukan'; 
-    }
+  if ( $isExist = mysqli_num_rows($fetchEmployee) !== 0) {
+    $employees = mysqli_fetch_all($fetchEmployee, MYSQLI_ASSOC);
+    $_SESSION['isEmployeeDetailProvided'] = true;
+  } else {
+    $_SESSION['isEmployeeDetailProvided'] = false;
+    $_SESSION['manageEmployeeMessage'] = "Data karyawan tidak tersedia";
+  }
 
 ?>
 
@@ -33,7 +34,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Formularium | UPTD Puskesmas Babakan Tarogong</title>
+  <title>Pengelolaan Pegawai | UPTD Puskesmas Babakan Tarogong</title>
 
 
   <!-- bootstrap core css -->
@@ -62,50 +63,46 @@
   <!-- responsive style -->
   <link href="../css/responsive.css" rel="stylesheet" />
 </head>
+  
+  <?php include "../employee/template/header.php"; ?>
 
-  <?php include("../employee/template/header.php") ?>
   <main>
     <?php if($isExist) :?>
         <div class="container mt-5">
             <div class="card mx-auto" style="width: 60vw;">
                 <div class="card-header text-center">
-                    <h6>FORMULARIUM</h6>
+                    <h6>Data Pegawai</h6>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <tbody>
                             <tr>
                                 <th scope="col">No</th>
-                                <th scope="col">Kelas Terapi</th>
-                                <th scope="col">Sub Kelas Terapi</th>
-                                <th scope="col">Nama Generik & Kekuatan Sediaan</th>
-                                <th scope="col">Peresepan Maksimal</th>
-                                <th scope="col">Keterangan</th>
+                                <th scope="col">Nama Pegawai</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Action</th>
                             </tr>
                             <?php $number = 1 ?>
-                            <?php foreach($datas as $data) : ?>
+                            <?php foreach($employees as $employee) : ?>
                                 <tr>
                                     
                                     <th><?php echo $number?></th>
                                     <td>
-                                        <?php echo htmlspecialchars($data['therapyClassName']) ?>
+                                        <?php echo ucfirst(htmlspecialchars($employee['employeeName'])) ?>
                                     </td>
                                     <td>
-                                        <?php echo htmlspecialchars($data['subTherapyClassName']) ?>
-                                        </td>
-                                    <td>
-                                        <?php echo htmlspecialchars($data['medicineName']) ?>
+                                        <?php if($employee['isAdmin'] == 1) : ?>
+                                            <?php echo htmlspecialchars("Admin") ?>
+                                        <?php else: ?>
+                                            <?php echo htmlspecialchars("Pegawai") ?>
+                                        <?php endif;?>
                                     </td>
                                     <td>
-                                        <?php echo htmlspecialchars($data['recipe']) ?>
-                                    </td>
-                                    <td>
-                                        <?php echo htmlspecialchars($data['medicineInformation']) ?>
+                                        <a href="../employee/detail-pegawai.php?employeeId=<?php echo $employee['employeeId'] ?>" class="btn detail-button">Detail</a>
                                     </td>
                                     <?php $number++ ?>
                                 </tr>
                             <?php endforeach; ?>
-                        
                         </tbody>
                     </table>
                 </div>
@@ -115,16 +112,19 @@
         <div class="container mt-5">
             <div class="card mx-auto" style="width: 60vw;">
                 <div class="card-header text-center">
-                    <h6>FORMULARIUM</h6>
+                    <h6>Data Pegawai</h6>
                 </div>
-                <h3 class="text-center py-5 px-5"><?php echo $_SESSION['formulariumMessage']?></h3>
+                <h3 class="text-center py-5 px-5"><?php echo $_SESSION['manageEmployeeMessage']?></h3>
             </div>
         </div>
     <?php endif;?>
         
     </main>
-  <!-- jQery -->
-  <script src="../js/jquery-3.4.1.min.js"></script>
+  
+
+
+<!-- jQery -->
+<script src="../js/jquery-3.4.1.min.js"></script>
   <!-- bootstrap js -->
   <script src="../js/bootstrap.js"></script>
   <!-- nice select -->

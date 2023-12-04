@@ -172,24 +172,28 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="login-container">
-                    <h2 class="text-center mb-5">Register</h2>
-                    
+                    <h2 class="text-center mb-5">Register Pegawai</h2>
                     <form action="" method="POST">
                         <div class="form-group">
                             <label for="username">Nama Pegawai</label>
                             <input type="text" name="name" class="form-control" id="username">
-                            <p class="text-danger"><?php echo $errorMessage['employeeName']?></p>
+                            <p class="text-danger">
+                                <?php echo $errorMessage['employeeName']?>
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="username">Email Pegawai</label>
                             <input type="text" name="email" class="form-control" id="username">
                             <p class="text-danger"><?php echo $errorMessage['employeeEmail']?></p>
                         </div>
-                        
                         <div class="form-group">
-                            <label for="password">No Telepon Pegawai</label>
+                            <label for="password">
+                                No Telepon Pegawai
+                            </label>
                             <input type="text" name="phoneNumber" class="form-control" id="password">
-                            <p class="text-danger"><?php echo $errorMessage['employeePhoneNumber']?></p>
+                            <p class="text-danger">
+                                <?php echo $errorMessage['employeePhoneNumber']?>
+                            </p>
                         </div>
 
                         <div class="form-group">
@@ -217,7 +221,6 @@
                         <div class="form-group text-right">
                             <a href="../employee/index.php" class="back-link">Kembali</a>
                         </div>
-                        
                         <button type="submit" name="register" class="btn btn-block login-btn">Register</button>
                     </form>
                 </div>

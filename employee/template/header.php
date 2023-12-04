@@ -49,12 +49,14 @@
                   <li class="nav-item">
                     <a class="nav-link" href="../employee/persediaan-obat.php">Persediaan</a>
                   </li>
-                  
                   <li class="nav-item">
                     <a class="nav-link" href="">farmasi klinis</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="">Laporan</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../employee/list-pegawai.php">Kelola Pegawai</a>
                   </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -67,11 +69,9 @@
                     </div>
                   </li>
                   <li class="nav-item">
-                    <form action="../employee/logout.php" method="POST" >
-                      <button class="nav-link logout-btn" name="logout" onclick="confirm('Apakah anda yakin ingin logout? ')">
+                      <a href="../employee/logout.php" class="nav-link logout-btn" name="logout">
                         Logout
-                      </button>
-                    </form>
+                      </a>
                   </li>
                 </ul>
               </div>
