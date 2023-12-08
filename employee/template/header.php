@@ -50,13 +50,13 @@
                     <a class="nav-link" href="../employee/persediaan-obat.php">Persediaan</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="">farmasi klinis</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="">Laporan</a>
+                    <a class="nav-link" href="../employee/laporan.php">Laporan</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="../employee/list-pegawai.php">Kelola Pegawai</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../employee/pesan.php">Pesan</a>
                   </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -88,3 +88,4 @@
       </div>
     </header>
     <!-- end header section -->
+    

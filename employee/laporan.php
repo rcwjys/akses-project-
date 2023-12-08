@@ -1,35 +1,27 @@
 <?php 
-  // * Require Connection From Database   
-  require "../config/connection.php";
+    require_once "../config/connection.php";
 
-  // * Start The Session   
-  session_start();
+    session_start();
 
-  // * isUser has Login Session   
-  if ($_SESSION['login']) {
-    if (!$_SESSION['isEmployeeDetailProvided']) {
-        header("Location: ../employee/list-pegawai.php");
+    if (!$_SESSION['login']) {
+        header("Location: ../index.html");
     }
-  } else {
-    header('Location: ../index.php');
-  }
 
-  $employeeId = mysqli_real_escape_string($conn, $_GET['employeeId']);
+    $medicineQuery = "SELECT medicineId, medicineName, medicineStock, medicineInformation, expiredDate, medicinePeriod FROM medicines ORDER BY medicineName";
 
-  $fetchEmployee = mysqli_query($conn, "SELECT * FROM employees where employeeid = $employeeId");
+    $results = mysqli_query($conn, $medicineQuery);
 
-  if (mysqli_num_rows($fetchEmployee) === 1) {
-    $employee = mysqli_fetch_assoc($fetchEmployee);
-  }else {
-    header("Location: ../employee/404.php");
-  }
+    if (mysqli_num_rows($results) >= 1) {
+        $medicines = mysqli_fetch_all($results, MYSQLI_ASSOC);
+        $_SESSION['isReportExist'] = true;
+    }else {
+        $_SESSION['isReportExist'] = false;
+        $_SESSION['medicineNotFound'] = "Data Laporan Tidak tersedia";
+    }
 
-  
-
-
-
-
-
+    mysqli_free_result($results);
+    mysqli_close($conn);
+   
 
 ?>
 
@@ -46,7 +38,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Detail Pegawai | UPTD Puskesmas Babakan Tarogong</title>
+  <title>Laporan | UPTD Puskesmas Babakan Tarogong</title>
 
 
   <!-- bootstrap core css -->
@@ -75,60 +67,71 @@
   <!-- responsive style -->
   <link href="../css/responsive.css" rel="stylesheet" />
 </head>
-  
-  <?php include "../employee/template/header.php"; ?>
 
+  <?php include("../employee/template/header.php") ?>
   <main>
+    <?php if($_SESSION['isReportExist']) :?>
         <div class="container mt-5">
             <div class="card mx-auto" style="width: 60vw;">
                 <div class="card-header text-center">
-                    <h6>Detail Pegawai</h6>
+                    <h6>Laporan Obat</h6>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <tbody>
                             <tr>
-                                <th scope="row" style="width: 40vw;">Nama Pegawai </th>
-                                <td>:</td>
-                                <td><?php echo htmlspecialchars($employee['employeeName']) ?></td>
+                                <th scope="col">Nama Obat</th>
+                                <th scope="col">Stok Obat</th>
+                                <th scope="col">Informasi Obat</th>
+                                <th scope="col">Expired Obat</th>
+                                <th scope="col">Masa Periode Obat</th>
+
                             </tr>
-                            <tr>
-                                <th scope="row">Email Pegawai</th>
-                                <td>:</td>
-                                <td><?php echo htmlspecialchars($employee['employeeEmail']) ?></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">No Telepon Pegawai</th>
-                                <td>:</td>
-                                <td><?php echo htmlspecialchars($employee['employeePhone']) ?></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Alamat Pegawai</th>
-                                <td>:</td>
-                                <td><?php echo htmlspecialchars($employee['employeeAddress']) ?></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Role</th>
-                                <td>:</td>
-                                <td>
-                                        <?php if($employee['isAdmin'] == 1) : ?>
-                                            <?php echo htmlspecialchars("Admin") ?>
-                                        <?php else: ?>
-                                            <?php echo htmlspecialchars("Pegawai") ?>
-                                        <?php endif;?>
-                                </td>
-                            </tr>
+                            <?php foreach($medicines as $medicine) : ?>
+                                <tr>
+                                    <td>
+                                        <?php echo htmlspecialchars($medicine['medicineName']) ?>
+                                    <?php if($medicine['medicineStock'] < 10): ?>
+                                        <td class="text-danger">
+                                            <?php echo htmlspecialchars($medicine['medicineStock']) ?>
+                                        </td>
+                                    <?php else : ?>
+                                        <td>
+                                            <?php echo htmlspecialchars($medicine['medicineStock']) ?>
+                                        </td>
+                                    <?php endif; ?>
+
+                                    <td>
+                                        <?php echo htmlspecialchars($medicine['medicineInformation']) ?>
+                                    </td>
+                                    <td>
+                                        <?php echo htmlspecialchars($medicine['expiredDate']) ?>
+                                    </td>
+                                    <td>
+                                        <?php echo htmlspecialchars($medicine['medicinePeriod']) ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
-                    <form action="" method="POST">
-                        <a type="button" class="btn mt-5 mx-3 my-3 back-btn" href="../employee/list-pegawai.php">Kembali</a>
-
-                        <a type="button" class="btn mt-5 mx-3 my-3 back-btn" href="../employee/reset-password.php?employeeId=<?php echo $employee['employeeId'] ?>">Reset Password</a>
-                    </form>
                 </div>
             </div>
         </div>
-    </main>
+    <?php else: ?>
+        <div class="container mt-5">
+            <div class="card mx-auto" style="width: 60vw;">
+                <div class="card-header text-center">
+                    <h6>Laporan Obat</h6>
+                </div>
+                <h3 class="text-center py-5 px-5"><?php echo $_SESSION['medicineNotFound']?></h3>
+            </div>
+        </div>
+    <?php endif;?>
+
+
+
+
+
 
   <!-- jQery -->
   <script src="../js/jquery-3.4.1.min.js"></script>

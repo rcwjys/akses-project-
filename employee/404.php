@@ -11,7 +11,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Persediaan Obat | UPTD Puskesmas Babakan Tarogong</title>
+  <title> 404 | UPTD Puskesmas Babakan Tarogong</title>
 
 
   <!-- bootstrap core css -->

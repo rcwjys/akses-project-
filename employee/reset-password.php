@@ -12,7 +12,7 @@
 
     $employeeId = (int)mysqli_real_escape_string($conn, $_GET['employeeId']);
 
-    $fetchEmployee = mysqli_query($conn, "SELECT employeeId FROM employees WHERE employeeid=$employeeId");
+    $fetchEmployee = mysqli_query($conn, "SELECT * FROM employees WHERE employeeid=$employeeId");
 
     $employee = mysqli_fetch_assoc($fetchEmployee);
 
@@ -22,22 +22,29 @@
             $newPassword = mysqli_real_escape_string($conn, $_POST['newPassword']);
 
             $newPasswordConfirmation = mysqli_real_escape_string($conn, $_POST['newPasswordConfirmation']);
-        
-            if ($newPassword === $newPasswordConfirmation) {
+            
+            if (password_verify($newPassword, $employee['employeePassword'])) {
+                $_SESSION['isPasswordValidationComplete'] = false;
+                $_SESSION['changePasswordValidation'] = "Password Baru Tidak boleh Sama";
                 
-                $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-        
-                $updatePasswordStatement = "UPDATE employees SET employeePassword = '$hashedNewPassword' WHERE employeeId = $employeeId";
-
-                $updatePassword = mysqli_query($conn, $updatePasswordStatement);
-
-                $_SESSION['isPasswordValidationComplete'] = true;
-                $_SESSION['passwordConfirmationMessage'] = "Password berhasil diupdate";
-
                 header(`Location: echo {$_SERVER['PHP_SELF']} `);
             } else {
-                $_SESSION['isPasswordValidationComplete'] = false;
-                $_SESSION['passwordConfirmationMessage'] = "Password dan Password Confirmation tidak sama";
+                if ($newPassword === $newPasswordConfirmation) {
+                
+                    $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+            
+                    $updatePasswordStatement = "UPDATE employees SET employeePassword = '$hashedNewPassword' WHERE employeeId = $employeeId";
+                    
+                    $updatePassword = mysqli_query($conn, $updatePasswordStatement);
+
+                    $_SESSION['isPasswordValidationComplete'] = true;
+                    $_SESSION['passwordConfirmationMessage'] = "Password berhasil diupdate";
+
+                    header(`Location: echo {$_SERVER['PHP_SELF']} `);
+                } else {
+                    $_SESSION['isPasswordValidationComplete'] = false;
+                    $_SESSION['passwordConfirmationMessage'] = "Password dan Password Confirmation tidak sama";
+                }
             }
         }
         
