@@ -1,58 +1,64 @@
-<?php 
-  require '../config/connection.php';
+<?php
+require '../config/connection.php';
 
-  session_start();
+session_start();
 
-  if (isset($_SESSION['login'])) {
-    header("Location: ../employee/index.php");
+if (isset($_SESSION['login'])) {
+  header("Location: ../employee/index.php");
+}
+
+$errorMessage = ['email' => '', 'password' => '', 'credentials' => ''];
+
+if (isset($_POST['login'])) {
+  $custEmail = mysqli_real_escape_string($conn, $_POST['email']);
+  $custPassword = mysqli_real_escape_string($conn, $_POST['password']);
+
+
+  if (empty($custEmail)) {
+    $errorMessage['email'] = 'Email tidak boleh kosong';
+  } else {
+    if (!filter_var($custEmail, FILTER_VALIDATE_EMAIL)) {
+      $errorMessage['email'] = "Email yang digunakan tidak valid";
+    }
   }
 
-  $errorMessage = ['email' => '', 'password' => '', 'credentials' => ''];
- 
-  if (isset($_POST['login'])) {
-      $custEmail = mysqli_real_escape_string($conn, $_POST['email']);
-      $custPassword = mysqli_real_escape_string($conn, $_POST['password']);
+  if (empty($custPassword)) {
+    $errorMessage['password'] = 'Password tidak boleh kosong';
+  } else {
+    $sql = "SELECT * FROM employees WHERE employeeEmail = '$custEmail'";
 
+    $results = mysqli_query($conn, $sql);
 
-    if (empty($custEmail)) {
-      $errorMessage['email'] = 'Email tidak boleh kosong';
-    }else {
-      if (!filter_var($custEmail, FILTER_VALIDATE_EMAIL)) {
-        $errorMessage['email'] = "Email yang digunakan tidak valid";
-      }
-    }
+    if (mysqli_num_rows($results) === 1) {
 
-    if (empty($custPassword)) {
-      $errorMessage['password'] = 'Password tidak boleh kosong';
-    } else {
-      $sql = "SELECT * FROM employees WHERE employeeEmail = '$custEmail'";
+      $employee = mysqli_fetch_assoc($results);
 
-      $results = mysqli_query($conn, $sql);
+      mysqli_free_result($results);
+      mysqli_close($conn);
 
-      if (mysqli_num_rows($results) === 1 ) {
-
-        $employee = mysqli_fetch_assoc($results);
-
-        mysqli_free_result($results);
-        mysqli_close($conn);
-
-        if (password_verify($custPassword, $employee['employeePassword'])) {
-          header("Location: ../employee/index.php");
-          $_SESSION['login'] = true;
-          $_SESSION['employeeActive'] = $employee['employeeName'];
+      if (password_verify($custPassword, $employee['employeePassword'])) {
+        header("Location: ../employee/index.php");
+        $_SESSION['login'] = true;
+        $_SESSION['employeeActive'] = $employee['employeeName'];
+        if ($employee['isAdmin'] === "1") {
+          $_SESSION['isAdmin'] = true;
         } else {
-          $errorMessage['credentials'] = 'Password salah';
+          $_SESSION['isAdmin'] = false;
         }
       } else {
-        $errorMessage['credentials'] = 'Email tidak terdaftar';
+        $errorMessage['credentials'] = 'Password salah';
       }
+    } else {
+      $errorMessage['credentials'] = 'Email tidak terdaftar';
     }
   }
-  
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <!-- Basic -->
   <meta charset="utf-8" />
@@ -95,88 +101,93 @@
 </head>
 
 <style>
-    body {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: #f8f9fa; /* Optional background color */
-    }
+  body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    /* Optional background color */
+  }
 
-    .login-container {
-      max-width: 800px;
-    }
+  .login-container {
+    max-width: 800px;
+  }
 
-    .login-btn {
-      background-color: #019F90;
-      color: #fff;
-    }
+  .login-btn {
+    background-color: #019F90;
+    color: #fff;
+  }
 
-    .login-btn {
-      background-color: #019F90;
-      color: #fff;
-      transition: transform 0.3s;
-    }
+  .login-btn {
+    background-color: #019F90;
+    color: #fff;
+    transition: transform 0.3s;
+  }
 
-    .login-btn:hover {
-      transform: scale(1.02);
-      color: #fff; /* Resetting text color on hover */
-      background-color: #019F90; /* Resetting background color on hover */
-      box-shadow: none; /* Resetting box-shadow on hover */
-    }
+  .login-btn:hover {
+    transform: scale(1.02);
+    color: #fff;
+    /* Resetting text color on hover */
+    background-color: #019F90;
+    /* Resetting background color on hover */
+    box-shadow: none;
+    /* Resetting box-shadow on hover */
+  }
 
-    .footer_section {
-        background-color: #f8f9fa;
-    }
+  .footer_section {
+    background-color: #f8f9fa;
+  }
 
-    a.back-link {
-        color: #019F90;
-    }
-  </style>
+  a.back-link {
+    color: #019F90;
+  }
+</style>
 </head>
-<body>  
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="login-container">
-                    <h2 class="text-center mb-5">Login</h2>
-                    
-                    <form action="" method="POST">
-                    <div class="form-group">
-                        <label for="username">Email</label>
-                        <input type="email" name="email" class="form-control" id="username">
-                        <p class="text-danger mt-1"><?php echo $errorMessage['email']?></p>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" class="form-control" id="password">
-                        <p class="text-danger mt-1"><?php echo $errorMessage['password']?></p>
-                    </div>
 
-                    <div class="form-group">
-                        <p class="text-danger mt-1"><?php echo $errorMessage['credentials']?></p>
-                    </div>
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="login-container">
+          <h2 class="text-center mb-5">Login</h2>
 
-                    <div class="form-group text-right">
-                        <a href="../index.php" class="back-link">Kembali</a>
-                    </div>
-                    
-                    <button type="submit" name="login" class="btn btn-block login-btn">Login</button>
-                    </form>
-                </div>
+          <form action="" method="POST">
+            <div class="form-group">
+              <label for="username">Email</label>
+              <input type="email" name="email" class="form-control" id="username">
+              <p class="text-danger mt-1"><?php echo $errorMessage['email'] ?></p>
             </div>
-        </div>
-    </div>
 
-    <footer class="footer_section fixed-bottom">
-        <div class="container">
-        <p>
-            &copy; <?php echo date("Y"); ?> All Rights Reserved By Kelompok 4 SI4501
-        </p>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" name="password" class="form-control" id="password">
+              <p class="text-danger mt-1"><?php echo $errorMessage['password'] ?></p>
+            </div>
+
+            <div class="form-group">
+              <p class="text-danger mt-1"><?php echo $errorMessage['credentials'] ?></p>
+            </div>
+
+            <div class="form-group text-right">
+              <a href="../index.php" class="back-link">Kembali</a>
+            </div>
+
+            <button type="submit" name="login" class="btn btn-block login-btn">Login</button>
+          </form>
         </div>
-    </footer>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer_section fixed-bottom">
+    <div class="container">
+      <p>
+        &copy; <?php echo date("Y"); ?> All Rights Reserved By Kelompok 4 SI4501
+      </p>
+    </div>
+  </footer>
 
   <!-- jQery -->
   <script src="../js/jquery-3.4.1.min.js"></script>
@@ -190,10 +201,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
   <!-- custom js -->
   <script src="../js/custom.js"></script>
-  
-  </body>
-  </html>
 
+</body>
 
-
-
+</html>

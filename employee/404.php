@@ -1,5 +1,13 @@
+<?php
+session_start();
+
+
+?>
+
+
 <!DOCTYPE html>
 <html>
+
 <head>
   <!-- Basic -->
   <meta charset="utf-8" />
@@ -41,29 +49,34 @@
   <link href="../css/responsive.css" rel="stylesheet" />
 </head>
 
+<?php if ($_SESSION['isAdmin']) : ?>
+  <?php include("../employee/template/header-admin.php") ?>
+<?php else : ?>
   <?php include("../employee/template/header.php") ?>
-
-    <div class="error-container text-center mt-5">
-        <h1 class="display-4">404 Not Found</h1>
-        <p class="lead">Sorry, the page you are looking for might be in another castle.</p>
-        <a class="btn btn-primary back-btn" href="../employee/index.php">Go Back</a>
-    </div>
+<?php endif; ?>
 
 
+<div class="error-container text-center mt-5">
+  <h1 class="display-4">404 Not Found</h1>
+  <p class="lead">Sorry, the page you are looking for might be in another castle.</p>
+  <a class="btn btn-primary back-btn" href="../employee/index.php">Go Back</a>
+</div>
 
-  <!-- jQery -->
-  <script src="../js/jquery-3.4.1.min.js"></script>
-  <!-- bootstrap js -->
-  <script src="../js/bootstrap.js"></script>
-  <!-- nice select -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
-  <!-- owl slider -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-  <!-- datepicker -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
-  <!-- custom js -->
-  <script src="../js/custom.js"></script>
 
-  <!-- footer section -->
-  <?php include("../employee/template/footer.php"); ?>
-  <!-- footer section -->
+
+<!-- jQery -->
+<script src="../js/jquery-3.4.1.min.js"></script>
+<!-- bootstrap js -->
+<script src="../js/bootstrap.js"></script>
+<!-- nice select -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+<!-- owl slider -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<!-- datepicker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<!-- custom js -->
+<script src="../js/custom.js"></script>
+
+<!-- footer section -->
+<?php include("../employee/template/footer.php"); ?>
+<!-- footer section -->

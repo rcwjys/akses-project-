@@ -1,14 +1,15 @@
-<?php 
+<?php
 session_start();
 
-  if (!isset($_SESSION['login'])) {
-    header("Location: ../employee/login.php");
-  } 
- 
+if (!isset($_SESSION['login'])) {
+  header("Location: ../employee/login.php");
+}
+
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <!-- Basic -->
   <meta charset="utf-8" />
@@ -50,125 +51,126 @@ session_start();
   <link href="../css/responsive.css" rel="stylesheet" />
 </head>
 
+<?php if ($_SESSION['isAdmin']) : ?>
+  <?php include("../employee/template/header-admin.php") ?>
+<?php else : ?>
   <?php include("../employee/template/header.php") ?>
+<?php endif; ?>
 
-    <!-- slider section -->
-    <section class="slider_section ">
-      <div class="dot_design">
-        <img src="images/dots.png" alt="">
-      </div>
-      <div id="customCarousel1" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="container ">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="detail-box">
-                    <div class="play_btn">
-                      <button>
-                        <i class="fa fa-play" aria-hidden="true"></i>
-                      </button>
-                    </div>
-                    <h1>
-                      Hello, <br>
-                      <span>
-                        <?php echo htmlspecialchars($_SESSION['employeeActive'])?>
-                      </span>
-                    </h1>
-                    <p>
-                      when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to
-                    </p>
-                  </div>
+<!-- slider section -->
+<section class="slider_section ">
+  <div class="dot_design">
+    <img src="images/dots.png" alt="">
+  </div>
+  <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="container ">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="detail-box">
+                <div class="play_btn">
+                  <button>
+                    <i class="fa fa-play" aria-hidden="true"></i>
+                  </button>
                 </div>
-                <div class="col-md-6">
-                  <div class="img-box">
-                    <img src="../images/slider-img.jpg" alt="">
-                  </div>
-                </div>
+                <h1>
+                  Hello, <br>
+                  <span>
+                    <?php echo htmlspecialchars($_SESSION['employeeActive']) ?>
+                  </span>
+                </h1>
+                <p>
+                  when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to
+                </p>
               </div>
             </div>
-          </div>
-          <div class="carousel-item">
-            <div class="container ">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="detail-box">
-                    <div class="play_btn">
-                      <button>
-                        <i class="fa fa-play" aria-hidden="true"></i>
-                      </button>
-                    </div>
-                    <h1>
-                      Hello, <br>
-                      <span>
-                        <?php echo htmlspecialchars($_SESSION['employeeActive'])?>
-                      </span>
-                    </h1>
-                    <p>
-                      when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to
-                    </p>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="img-box">
-                    <img src="../images/slider-img.jpg" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="container ">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="detail-box">
-                    <div class="play_btn">
-                      <button>
-                        <i class="fa fa-play" aria-hidden="true"></i>
-                      </button>
-                    </div>
-                    <h1>
-                      Hello, <br>
-                      <span>
-                        <?php echo htmlspecialchars($_SESSION['employeeActive'])?>
-                      </span>
-                    </h1>
-                    <p>
-                      when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to
-                    </p>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="img-box">
-                    <img src="../images/slider-img.jpg">
-                  </div>
-                </div>
+            <div class="col-md-6">
+              <div class="img-box">
+                <img src="../images/slider-img.jpg" alt="">
               </div>
             </div>
           </div>
         </div>
-    </section>
-    <!-- end slider section -->
+      </div>
+      <div class="carousel-item">
+        <div class="container ">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="detail-box">
+                <div class="play_btn">
+                  <button>
+                    <i class="fa fa-play" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <h1>
+                  Hello, <br>
+                  <span>
+                    <?php echo htmlspecialchars($_SESSION['employeeActive']) ?>
+                  </span>
+                </h1>
+                <p>
+                  when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="img-box">
+                <img src="../images/slider-img.jpg" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="container ">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="detail-box">
+                <div class="play_btn">
+                  <button>
+                    <i class="fa fa-play" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <h1>
+                  Hello, <br>
+                  <span>
+                    <?php echo htmlspecialchars($_SESSION['employeeActive']) ?>
+                  </span>
+                </h1>
+                <p>
+                  when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="img-box">
+                <img src="../images/slider-img.jpg">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<!-- end slider section -->
 
 
-    
-  <!-- jQery -->
-  <script src="../js/jquery-3.4.1.min.js"></script>
-  <!-- bootstrap js -->
-  <script src="../js/bootstrap.js"></script>
-  <!-- nice select -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
-  <!-- owl slider -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-  <!-- datepicker -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
-  <!-- custom js -->
-  <script src="../js/custom.js"></script>
-  
 
-  <!-- footer section -->
-  <?php include("../employee/template/footer.php"); ?>
-  <!-- footer section -->
+<!-- jQery -->
+<script src="../js/jquery-3.4.1.min.js"></script>
+<!-- bootstrap js -->
+<script src="../js/bootstrap.js"></script>
+<!-- nice select -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+<!-- owl slider -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<!-- datepicker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<!-- custom js -->
+<script src="../js/custom.js"></script>
 
 
-
+<!-- footer section -->
+<?php include("../employee/template/footer.php"); ?>
+<!-- footer section -->

@@ -65,7 +65,11 @@ if (mysqli_num_rows($results) === 1) {
   <link href="../css/responsive.css" rel="stylesheet" />
 </head>
 
-<?php include("../employee/template/header.php") ?>
+<?php if ($_SESSION['isAdmin']) : ?>
+  <?php include("../employee/template/header-admin.php") ?>
+<?php else : ?>
+  <?php include("../employee/template/header.php") ?>
+<?php endif; ?>
 
 <div class="container mt-5">
   <div class="row">
