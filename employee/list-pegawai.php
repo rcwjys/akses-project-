@@ -6,6 +6,10 @@ if (!$_SESSION['login']) {
     header("Location: ../index.php");
 }
 
+if (!$_SESSION['isAdmin']) {
+    header("Location: ../employee/404.php");
+}
+
 $fetchEmployee = mysqli_query($conn, "SELECT employeeId, employeeName, isAdmin, employeePassword FROM employees ORDER BY employeeName");
 
 
